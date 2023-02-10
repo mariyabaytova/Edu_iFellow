@@ -15,14 +15,14 @@ public class Autorization {
         open("edujira.ifellow.ru");
 
         sleep(1000);
-        SelenideElement loginInput = $x("//input[@id=\"login-form-username\"]").as("Ввод логина");
+        SelenideElement loginInput = $x("//input[@id=login-form-username]").as("Ввод логина");
         loginInput.sendKeys("mbaitova");
-        SelenideElement passwordInput = $x("//input[@id=\"login-form-password\"]").as("Ввод пароля");
+        SelenideElement passwordInput = $x("//input[@id=login-form-password]").as("Ввод пароля");
         passwordInput.sendKeys("Qwerty123");
-        SelenideElement rememberMe = $x("//label[@id=\"remembermelabel\"]").as("Запомнить меня");
-        SelenideElement entranceButton = $x("//input[@value=\"Войти\"]").as("Войти");
+        SelenideElement rememberMe = $x("//label[@id=remembermelabel]").as("Запомнить меня");
+        SelenideElement entranceButton = $x("//input[@value=Войти]").as("Войти");
 
-        SelenideElement entrance = $x("//h1[text()=\"System Dashboard\"]").as("System Dashboard");
+        SelenideElement entrance = $x("//h1[text()=System Dashboard]").as("System Dashboard");
         String s = entrance.getText();
 
         Assert.assertEquals("System Dashboard", s);
