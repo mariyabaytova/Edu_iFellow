@@ -2,7 +2,9 @@ package ApiSteps;
 
 import WebHooks.Hooks;
 import io.qameta.allure.Step;
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
+import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.response.Response;
 import org.json.JSONObject;
 import org.junit.Assert;
@@ -16,7 +18,7 @@ public class Potato extends Hooks {
     public static String param1;
     public static String param2;
 
-   @Step
+   @Step ("PotatoJsonTest")
     public static void PotatoVSTomato() throws IOException {
 
         RestAssured.baseURI = "https://reqres.in/";
@@ -25,6 +27,7 @@ public class Potato extends Hooks {
         requestBody.put("name", "Tomato");
         requestBody.put("job", "Eat maket");
         Response updateTomato = given()
+                .filter(new AllureRestAssured()).filter(new RequestLoggingFilter())
                 .header("Content-Type", "application/json")
                 .body(requestBody.toString())
                 .when()

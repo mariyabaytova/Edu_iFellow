@@ -2,7 +2,9 @@ package ApiSteps;
 
 import WebHooks.Hooks;
 import io.qameta.allure.Step;
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.json.JSONObject;
@@ -25,10 +27,11 @@ public class RickAndMorty extends Hooks {
     static RequestSpecification help = new RequestSpecBuilder()
             .setBaseUri("https://rickandmortyapi.com/api")
             .build();
-    @Step
+    @Step ("Получение персонажа")
     public static void getCharacter(String id) {
 
         Response getChar = given()
+                .filter(new AllureRestAssured()).filter(new RequestLoggingFilter())
                 .spec(help)
                 .when()
                 .get("/character/" + id)
@@ -40,10 +43,11 @@ public class RickAndMorty extends Hooks {
         speciesMorti = new JSONObject(getChar.getBody().asString()).get("species").toString();
         System.out.println(charId + "\nГде :\n" + locationMorti + "\nТип:\n" + speciesMorti);
     }
-    @Step
+    @Step ("Получение эпизода")
     public static void getEpisode() {
 
         Response gettingEpisode = given()
+                .filter(new AllureRestAssured()).filter(new RequestLoggingFilter())
                 .spec(help)
                 .when()
                 .get("/character/" + charId)
@@ -54,10 +58,11 @@ public class RickAndMorty extends Hooks {
         lastEpisode = Integer.parseInt(new JSONObject(gettingEpisode.getBody().asString()).getJSONArray("episode").get(episode).toString().replaceAll("[^0-9]", ""));
         System.out.println(lastEpisode);
     }
-    @Step
+    @Step("Получение последнего персонажа")
     public static void lastChar() {
 
         Response gettingEpisode = given()
+                .filter(new AllureRestAssured()).filter(new RequestLoggingFilter())
                 .spec(help)
                 .when()
                 .get("/episode/" + lastEpisode)
@@ -71,10 +76,11 @@ public class RickAndMorty extends Hooks {
                 .get(LastCharacter).toString().replaceAll("[^0-9]", ""));
         System.out.println(lastCharacterNumber);
     }
-    @Step
+    @Step ("Получение результата")
     public static void local() {
 
         Response gettinglocal = given()
+                .filter(new AllureRestAssured()).filter(new RequestLoggingFilter())
                 .spec(help)
                 .when()
                 .get("/character/" + lastCharacterNumber)
