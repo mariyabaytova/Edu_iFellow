@@ -1,12 +1,15 @@
 package ApiSteps;
 
+import WebHooks.Hooks;
+import io.qameta.allure.Step;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
-public class Authorization {
+public class Authorization extends Hooks {
 
+   @Step
     public static void Authorized() {
 
         Response auth = RestAssured.given()

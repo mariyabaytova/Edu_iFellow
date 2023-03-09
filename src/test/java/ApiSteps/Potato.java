@@ -1,5 +1,7 @@
 package ApiSteps;
 
+import WebHooks.Hooks;
+import io.qameta.allure.Step;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.json.JSONObject;
@@ -10,10 +12,11 @@ import java.nio.file.Paths;
 
 import static io.restassured.RestAssured.given;
 
-public class Potato {
+public class Potato extends Hooks {
     public static String param1;
     public static String param2;
 
+   @Step
     public static void PotatoVSTomato() throws IOException {
 
         RestAssured.baseURI = "https://reqres.in/";

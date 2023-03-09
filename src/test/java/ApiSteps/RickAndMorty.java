@@ -1,5 +1,7 @@
 package ApiSteps;
 
+import WebHooks.Hooks;
+import io.qameta.allure.Step;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -7,7 +9,7 @@ import org.json.JSONObject;
 
 import static io.restassured.RestAssured.given;
 
-public class RickAndMorty {
+public class RickAndMorty extends Hooks {
 
     public static String charId;
     public static int lastEpisode;
@@ -23,6 +25,7 @@ public class RickAndMorty {
     static RequestSpecification help = new RequestSpecBuilder()
             .setBaseUri("https://rickandmortyapi.com/api")
             .build();
+    @Step
     public static void getCharacter(String id) {
 
         Response getChar = given()
@@ -37,6 +40,7 @@ public class RickAndMorty {
         speciesMorti = new JSONObject(getChar.getBody().asString()).get("species").toString();
         System.out.println(charId + "\nГде :\n" + locationMorti + "\nТип:\n" + speciesMorti);
     }
+    @Step
     public static void getEpisode() {
 
         Response gettingEpisode = given()
@@ -50,6 +54,7 @@ public class RickAndMorty {
         lastEpisode = Integer.parseInt(new JSONObject(gettingEpisode.getBody().asString()).getJSONArray("episode").get(episode).toString().replaceAll("[^0-9]", ""));
         System.out.println(lastEpisode);
     }
+    @Step
     public static void lastChar() {
 
         Response gettingEpisode = given()
@@ -66,6 +71,7 @@ public class RickAndMorty {
                 .get(LastCharacter).toString().replaceAll("[^0-9]", ""));
         System.out.println(lastCharacterNumber);
     }
+    @Step
     public static void local() {
 
         Response gettinglocal = given()
